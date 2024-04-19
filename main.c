@@ -178,9 +178,43 @@ void calculate_log(void)   //计算自然对数的底e
     }
     printf("e计算完成！\n");
 }
-    
+void calculate_factorization(void)  //计算因数分解
+{
+    int number , count = 1;
+    int number2 = 1;   //有bug，因式分解最后一个数字没输出
+    printf("请输入一个正整数：");
+    scanf("%d", &number);
+    endl(1);
+    while(number >= count)
+    {
+        //printf("%d \n", count);
+        if(is_prime(count))
+        {
+             while (number % count == 0 && count > 1)
+             {
+                printf("%d* ", count);
+                number /= count;
+                //count++;
+                number2 *= count;
+                //printf("%d \n", count);
+             }
+             
+        }
+        else
+        {
+            if(count > number)
+            {
+                printf(" *%d\n", number / number2);
+                break;
+            }
+           
+        }
+        count++;
+    }
+    printf("因数分解完成！\n");
+}
 int main() {
-    calculate_prime();
+    calculate_factorization();
     endl(1);
     _print("Hello, world!\n", 200);
     endl(2);
