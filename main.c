@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #define Secoud_pi 1
 void _print(const char* str, int ms) {
-   int count = 0;
+   int count = 0;//计数器
    while(*(str + count) != '\0')
    {
     printf("%c", *(str + count));
@@ -78,6 +78,64 @@ double exp(double x, int y) //计算x的y次方
     }
     return _return;
 }
+bool is_prime(int n)  //判断是否为素数
+{
+    if(n <= 1)
+    {
+        return false;
+    }
+    for(int i = 2; i <= n / 2; i++)
+    {
+        if(n % i == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+void calculate_prime(void)  //计算素数
+{
+    int end, ms, count;
+    bool quite = false;  //是否显示详细信息
+    printf("请输入终止迭代次数：");
+    scanf("%d", &end);
+    printf("请输入每次迭代间隔时间(ms)：");
+    scanf("%d", &ms);
+    while(count <= end)
+    {
+        if(is_prime(count))
+        {
+            if(GetKeyState(' ') < 0)
+            {
+                if(quite == false)
+                {
+                    quite = true;
+                }
+                else
+                {
+                    quite = false;
+                }
+                Sleep(10);
+                endl(1);
+            }
+            if(quite == false)
+            {
+                printf("%d\r", count);   //减少计算详细信息输出所用时间
+            }
+            else
+            {
+                printf("素数计算结果: %d   迭代次数：%d   计算进度: %lf %%  计算中...\r", count, count, (double)count / (double)end * 100.0);
+            }
+        }
+        count++;
+        Sleep(ms);
+        if(GetKeyState('L') < 0)
+        {
+            return;
+        }
+    }
+    printf("素数计算完成！\n");
+}
 void calculate_log(void)   //计算自然对数的底e
 {
     double e;
@@ -122,7 +180,7 @@ void calculate_log(void)   //计算自然对数的底e
 }
     
 int main() {
-    calculate_log();
+    calculate_prime();
     endl(1);
     _print("Hello, world!\n", 200);
     endl(2);
